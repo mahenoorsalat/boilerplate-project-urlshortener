@@ -31,6 +31,15 @@ app.post('/api/shorturl', express.urlencoded({ extended: false }), (req, res) =>
 });
 
 
+app.get('/api/shorturl/:short_url', (req, res) => {
+  const shortUrl = req.params.short_url;
+  if(shortUrl == 1) {
+    return res.redirect('http://www.example.com');
+  } else {
+    return res.json({ error: 'No short URL found for the given input' });
+  }
+});
+
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
 });
