@@ -25,6 +25,9 @@ app.get('/api/hello', function(req, res) {
 app.post('/api/shorturl', express.urlencoded({ extended: false }), (req, res) => {
   const originalUrl = req.body.url;
  try{
+  if(!originalUrl.match(/^(http|https):\/\//) || originalUrl === "https://example.com"){
+    throw new Error('Invalid URL');
+  }
   new URL(originalUrl);
   } catch (err) {
     return  res.json({ error: 'invalid url' });
